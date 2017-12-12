@@ -10,7 +10,7 @@
 <!-- ## 适用
 
 所有经验适用于：`iOS6.0+`, `Android4.0+` -->
-
+<!-- * [性能优化](#user-content-performance) -->
 ## 目录
 
 * [兼容性](#user-content-compatibility)
@@ -42,12 +42,10 @@
 	* [禁止文本缩放](#user-content-text-size-adjust)
 	* [Img的跨域问题](#user-content-img-block)
 	* [IOS Audio标签问题](#user-content-ios-audio-tag)	
-<!-- * [性能优化](#user-content-performance) -->
 * [Vue经验](#user-content-vue-experience)
 	* [EventBus当前对象问题](#user-content-vue-event-bus-context)
 	* [Vuex使用问题](#user-content-vue-vuex-probrem)
 	* [列表渲染问题](#user-content-vue-list-render-probrem)
-	
 * [组件划分原则](#user-content-design-component-rule)
 
 <a name="compatibility"></a>
