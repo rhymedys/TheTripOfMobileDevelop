@@ -41,7 +41,7 @@
 	* [关闭iOS输入自动修正](#user-content-autocorrect)
 	* [禁止文本缩放](#user-content-text-size-adjust)
 	* [Img的跨域问题](#user-content-img-block)
-	
+	* [IOS Audio标签问题](#user-content-ios-audio-tag)	
 <!-- * [性能优化](#user-content-performance) -->
 * [Vue经验](#user-content-vue-experience)
 	* [EventBus当前对象问题](#user-content-vue-event-bus-context)
@@ -514,6 +514,10 @@ html {
 <a name="img-block"></a>
 ###	Img的跨域问题
  通过实例新建的`image`对象存在协议、域名不同的问题会产生警告导出出现与之设计不符的问题（比如图片加载不出等），建议修改资源的协议与当前页面的协议一致。
+
+<a name="ios-audio-tag"></a>
+###	IOS音频播放问题
+`IOS` Audio标签默认情况下的	`preload`、`autoplay`无效，当第一次的触发播放的时候，音频流才开始加载，且`初始化一个新的音频流时会有几秒的延时`，所以有几率出现触发播放了却没有播放，因此建议适当延时播放
 
 <a name="vue-experience"></a>
 ##	Vue经验
