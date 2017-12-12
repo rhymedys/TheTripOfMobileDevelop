@@ -25,7 +25,8 @@
 	* [为什么小于12px字号不生效](#user-content-12px)
 	* [chrome中body使用rem失效](#user-content-chrome-rem-bug)
 	* [不要对html设置百分比大小的字号](#user-content-html-percent-font-size)
-* [经验](#user-content-experience)
+	*	[单页应用微信签名问题](#user-content-weixin-sign)
+* [Html经验](#user-content-experience)
 	* [禁止保存或拷贝图像](#user-content-touch-callout)
 	* [取消touch高亮](#user-content-tap-highlight-color)
 	* [禁止选中内容](#user-content-user-select)
@@ -39,8 +40,15 @@
 	* [关闭iOS键盘首字母自动大写](#user-content-autocapitalize)
 	* [关闭iOS输入自动修正](#user-content-autocorrect)
 	* [禁止文本缩放](#user-content-text-size-adjust)
+	* [Img的跨域问题](#user-content-img-block)
+	
 <!-- * [性能优化](#user-content-performance) -->
 * [Vue经验](#user-content-vue-experience)
+	* [EventBus当前对象问题](#user-content-vue-event-bus-context)
+	* [Vuex使用问题](#user-content-vue-vuex-probrem)
+	* [列表渲染问题](#user-content-vue-list-render-probrem)
+	
+
 
 <a name="compatibility"></a>
 ## 兼容性
@@ -268,8 +276,14 @@ html {
 }
 ```
 
+<a name="weixin-sign"></a>
+##	单页应用微信签名问题
+
+目前测试：微信JsSDK签名在`Android5.x`以上没发现任何问题，但在`IOS`上存在签名失败的问题，原因在于微信浏览器在IOS端使用的是苹果内核的浏览器，而在Android上使用的是谷歌开源的分支加上自身改造的浏览器内核。
+*	详情的适配方案 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1483682025_enmey
+
 <a name="experience"></a>
-## 经验
+## Html经验
 
 <a name="touch-callout"></a>
 ### 禁止保存或拷贝图像
@@ -497,6 +511,65 @@ html {
 ```html
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimal-ui">
 ```
+<a name="img-block"></a>
+###	Img的跨域问题
+ 通过实例新建的`image`对象存在协议、域名不同的问题会产生警告导出出现与之设计不符的问题（比如图片加载不出等），建议修改资源的协议与当前页面的协议一致。
 
 <a name="vue-experience"></a>
 ##	Vue经验
+
+<a name="vue-event-bus-context"></a>
+### EventBus当前对象问题
+
+使用global event bus 时，接收者`$on`必须处于`created`之后的状态,且注意当前实例`this`对象需保持同一个里面
+
+<a name="vue-vuex-probrem"></a>
+### Vuex使用问题
+
+1.	使用`Vuex`时，在页面结束的生命周期要清理脏数据
+2.	 动态注册`Vuex`时，每个模块的`state，getters、actions，mutations`要构造函数生成,尽量使用`namespace`做域名限制，避免同名、多次注册产生数据冗余、覆盖
+3.	当要修改Vuex的`State`时， 只能通过`Commit`的方式进行提交修改, 因为`mutation `都是同步事务，例如：
+
+```js
+computed:{
+        …mapGetters({ defaultPageSize:mGetters.GET_DEFAULT_PAGE_SIZE})
+},
+methods:{
+       getAdc:function(){
+            // 非法操作 
+            this. defaultPageSize++;
+             let  defaultPageSizeA = this. defaultPageSize;
+            defaultPageSizeA ++;
+            // 正确操作
+            let {defaultPageSize} = this;
+	    defaultPageSize++;
+	}
+}
+```
+
+<a name="vue-list-render-probrem"></a>
+### 列表渲染问题
+
+1.	使用列表渲染时，一定要加上一个`key`值，降低因刷新数据而消耗不必要的渲染问题，例：
+
+```html
+    <div v-for="(item,index) in 5" :key="index">
+      <div>{{item}}</div>
+    </div>
+```
+
+2.	由于 `JavaScript` 的限制，`Vue `不能检测以下变动的数组：
+	*	当你利用索引直接设置一个项时，例如：`vm.items[indexOfItem] = newValue`
+	*	当你修改数组的长度时，例如：`vm.items.length = newLength`
+	*	为了解决第一类问题，以下两种方式都可以实现和 `vm.items[indexOfItem] = newValue` 相同的效果，同时也将触发状态更新：
+
+	```js
+	// Vue.set
+	Vue.set(example1.items, indexOfItem, newValue)
+
+	// Array.prototype.splice
+	example1.items.splice(indexOfItem, 1, newValue)
+
+	为了解决第二类问题，你可以使用 splice：
+	example1.items.splice(newLength)
+	```
