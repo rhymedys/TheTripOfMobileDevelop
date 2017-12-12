@@ -25,7 +25,7 @@
 	* [为什么小于12px字号不生效](#user-content-12px)
 	* [chrome中body使用rem失效](#user-content-chrome-rem-bug)
 	* [不要对html设置百分比大小的字号](#user-content-html-percent-font-size)
-	*	[单页应用微信签名问题](#user-content-weixin-sign)
+	*	[单页应用微信签名](#user-content-weixin-sign)
 * [Html经验](#user-content-experience)
 	* [禁止保存或拷贝图像](#user-content-touch-callout)
 	* [取消touch高亮](#user-content-tap-highlight-color)
@@ -277,7 +277,7 @@ html {
 ```
 
 <a name="weixin-sign"></a>
-##	单页应用微信签名问题
+##	单页应用微信签名
 
 目前测试：微信JsSDK签名在`Android5.x`以上没发现任何问题，但在`IOS`上存在签名失败的问题，原因在于微信浏览器在IOS端使用的是苹果内核的浏览器，而在Android上使用的是谷歌开源的分支加上自身改造的浏览器内核。
 *	详情的适配方案 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1483682025_enmey
