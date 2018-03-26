@@ -26,6 +26,7 @@
 	* [chrome中body使用rem失效](#user-content-chrome-rem-bug)
 	* [不要对html设置百分比大小的字号](#user-content-html-percent-font-size)
 	*	[单页应用微信签名](#user-content-weixin-sign)
+	* [支付宝WebView单页应用问题](#user-content-alipay-web-view)	
 * [Html经验](#user-content-experience)
 	* [禁止保存或拷贝图像](#user-content-touch-callout)
 	* [取消touch高亮](#user-content-tap-highlight-color)
@@ -275,10 +276,16 @@ html {
 ```
 
 <a name="weixin-sign"></a>
-##	单页应用微信签名
+###	单页应用微信签名
 
 目前测试：微信JsSDK签名在`Android5.x`以上没发现任何问题，但在`IOS`上存在签名失败的问题，原因在于微信浏览器在IOS端使用的是苹果内核的浏览器，而在Android上使用的是谷歌开源的分支加上自身改造的浏览器内核。
 *	详情的适配方案 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1483682025_enmey
+
+
+<a name="alipay-web-view"></a>
+###	支付宝WebView单页应用问题
+
+目前测试：因支付宝对WebView正在改造,且可能未完善好，支付宝对单页应用调用原生历史管理、页面标题接口存在缺陷与不稳定性，造成关联Api可能失效问题。建议前端使用用支付宝提供的[JSAPI](https://myjsapi.alipay.com/jsapi/index.html) ,[Alipay JSSDK](https://myjsapi.alipay.com/alipayjsapi/index.html),其中Alipay JSSDK 未暴露onBack等接口，但是可以从js文件中找得出。
 
 <a name="experience"></a>
 ## Html经验
