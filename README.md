@@ -42,7 +42,8 @@
 	* [关闭iOS输入自动修正](#user-content-autocorrect)
 	* [禁止文本缩放](#user-content-text-size-adjust)
 	* [Img的跨域问题](#user-content-img-block)
-	* [IOS Audio标签问题](#user-content-ios-audio-tag)	
+	* [IOS Audio标签问题](#user-content-ios-audio-tag)
+	* [IOS Audio 调用play无效](#user-content-ios-audio-invalid-play)
 * [Vue经验](#user-content-vue-experience)
 	* [EventBus当前对象问题](#user-content-vue-event-bus-context)
 	* [Vuex使用问题](#user-content-vue-vuex-probrem)
@@ -523,6 +524,19 @@ html {
 <a name="ios-audio-tag"></a>
 ###	IOS音频播放问题
 `IOS` Audio标签默认情况下的	`preload`、`autoplay`无效，当第一次的触发播放的时候，音频流才开始加载，且`初始化一个新的音频流时会有几秒的延时`，所以有几率出现触发播放了却没有播放，因此建议适当延时播放
+
+<a name="ios-audio-invalid-play"></a>
+### IOS Audio 调用`play`无效
+可尝试添加以下代码
+``` javascript
+  const audioPlayer = this.$refs.audioPlayer
+  audioPlayer.play()
+  audioPlayer.pause()
+  document.addEventListener('WeixinJSBridgeReady', () => {
+    audioPlayer.play()
+    audioPlayer.pause()
+  }, false)
+```
 
 <a name="vue-experience"></a>
 ##	Vue经验
