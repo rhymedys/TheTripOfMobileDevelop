@@ -539,7 +539,7 @@ html {
   }, false)
 ```
 
-<a name="content-redirect-to-domain"></a>
+<a name="redirect-to-domain"></a>
 ### 访问网页后url改变为域名
 可尝试在html`头部`加一段清缓存重刷代码
 
