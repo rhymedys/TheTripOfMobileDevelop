@@ -44,6 +44,7 @@
 	* [Img的跨域问题](#user-content-img-block)
 	* [IOS Audio标签问题](#user-content-ios-audio-tag)
 	* [IOS Audio 调用play无效](#user-content-ios-audio-invalid-play)
+	* [访问页面后自动重定向到域名](#user-content-redirect-to-domain)
 * [Vue经验](#user-content-vue-experience)
 	* [EventBus当前对象问题](#user-content-vue-event-bus-context)
 	* [Vuex使用问题](#user-content-vue-vuex-probrem)
@@ -537,6 +538,10 @@ html {
     audioPlayer.pause()
   }, false)
 ```
+
+<a name="content-redirect-to-domain"></a>
+### 访问页面后自动重定向到域名
+可尝试在html`头部`加一段清缓存重刷代码
 
 <a name="vue-experience"></a>
 ##	Vue经验
